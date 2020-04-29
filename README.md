@@ -32,5 +32,16 @@ python3 hecuba_mqtt/bank_example/bank_producer.py
 #To start the consumer, open a new terminal and type. 
 python3 hecuba_mqtt/bank_example/bank_receiver.py 
 
+# Check options with --help
+python hecuba_mqtt/bank_example/bank_receiver.py  --help # same options for bank_producter.py
+Usage: bank_receiver.py [OPTIONS]
+
+Options:
+  --password TEXT  MQTT password
+  --username TEXT  MQTT username
+  --hostname TEXT  MQTT server hostname
+  --port INTEGER   MQTT server port
+  --help           Show this message and exit.
+
 ```
 

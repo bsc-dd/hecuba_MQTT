@@ -1,8 +1,14 @@
 import paho.mqtt.client as mqtt
 from hecuba_mqtt.bank_example.data_model import IPlogJSON, IPlogs
+import click
 
 
-def receive():
+@click.command()
+@click.option('--password', default=None, help='MQTT password')
+@click.option('--username', default=None, help='MQTT username')
+@click.option('--hostname', default="test.mosquitto.org", help='MQTT server hostname')
+@click.option('--port', default=1883, help='MQTT server port')
+def receive(password, username, hostname, port):
     client = mqtt.Client()
     log_repository = IPlogs('test.iplogs')
 
@@ -18,8 +24,9 @@ def receive():
         print("record for %s stored" % (log.FK_NUMPERSO))
 
     client.on_message = on_message
-
-    client.connect("test.mosquitto.org", 1883, 60)
+    if password is not None and username is not None:
+        client.username_pw_set(username=username, password=password)
+    client.connect(hostname, port, 60)
 
     client.loop_forever()
 
